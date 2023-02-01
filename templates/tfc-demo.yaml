@@ -82,7 +82,7 @@ spec:
                 value: '{{ .params.PRIVATE_SUBNET_COUNT }}'
             sourceRef:
               kind: GitRepository
-              name: terraform
+              name: flux-system
               namespace: flux-system
         - apiVersion: infra.contrib.fluxcd.io/v1alpha1
           kind: Terraform
@@ -118,5 +118,5 @@ spec:
                 value: '{{ .params.INSTANCE_TYPE }}'
             sourceRef:
               kind: GitRepository
-              name: terraform
+              name: flux-system
               namespace: flux-system

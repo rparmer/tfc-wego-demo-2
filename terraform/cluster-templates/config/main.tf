@@ -24,12 +24,12 @@ provider "kubernetes" {
 }
 
 module "node_group" {
-  source                    = "../modules/node-group"
+  source                    = "github.com/rparmer/tfc-wge-demo.git//terraform/modules/node-group"
   cluster_name              = var.cluster_name
   node_group_name           = "${var.cluster_name}-ng"
-  vpc_id                    = data.aws_eks_cluster.this.vpc_config.vpc_id
-  subnet_ids                = var.subnet_ids
-  cluster_security_group_id = data.aws_eks_cluster.this.vpc_config.cluster_security_group_id
+  vpc_id                    = data.aws_eks_cluster.this.vpc_config[0].vpc_id
+  subnet_ids                = split(",", var.subnet_ids)
+  cluster_security_group_id = data.aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
   desired_size              = var.desired_size
   min_size                  = var.min_size
   max_size                  = var.max_size
@@ -40,7 +40,7 @@ module "node_group" {
 data "aws_caller_identity" "current" {}
 
 module "aws_auth" {
-  source              = "../modules/aws-auth"
+  source              = "github.com/rparmer/tfc-wge-demo.git//terraform/modules/aws-auth"
   accounts            = [data.aws_caller_identity.current.account_id]
   cluster_admin_roles = var.cluster_admin_roles
   cluster_admin_users = var.cluster_admin_users

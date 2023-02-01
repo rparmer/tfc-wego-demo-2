@@ -4,7 +4,7 @@ terraform {
     organization = "terraform-controller-demo"
 
     workspaces {
-      name = "tfc-wge-demo-core"
+      name = "tfc-wge-demo-config"
     }
   }
 }
