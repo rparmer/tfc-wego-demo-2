@@ -8,10 +8,13 @@ metadata:
   namespace: flux-system
 spec:
   approvePlan: auto
-  backendConfig:
-    disable: true
   cliConfigSecretRef:
     name: tfc-cli-config
+  cloud:
+    hostname: app.terraform.io
+    organization: terraform-controller-demo
+    workspaces:
+      name: tfc-wego-demo-core
   destroyResourcesOnDeletion: false
   interval: 1h
   path: ./terraform/cluster-templates/core
@@ -47,15 +50,18 @@ metadata:
   namespace: flux-system
 spec:
   approvePlan: auto
-  backendConfig:
-    disable: true
   cliConfigSecretRef:
     name: tfc-cli-config
+  cloud:
+    hostname: app.terraform.io
+    organization: terraform-controller-demo
+    workspaces:
+      name: tfc-wego-demo-config
   dependsOn:
   - name: tfc-wego-demo-core
   destroyResourcesOnDeletion: false
   interval: 1h
-  path: ./cluster-templates/leaf-cluster-config
+  path: ./cluster-templates/config
   retryInterval: 20s
   sourceRef:
     kind: GitRepository
