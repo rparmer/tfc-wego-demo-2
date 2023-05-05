@@ -1,0 +1,78 @@
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  labels:
+    templates.weave.works/template-name: tfc-demo
+    templates.weave.works/template-namespace: default
+  name: tfc-wego-demo-core
+  namespace: flux-system
+spec:
+  approvePlan: auto
+  backendConfig:
+    disable: true
+  cliConfigSecretRef:
+    name: tfc-cli-config
+  destroyResourcesOnDeletion: false
+  interval: 1h
+  path: ./terraform/cluster-templates/core
+  retryInterval: 20s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  vars:
+  - name: cluster_name
+    value: tfc-wego-demo
+  - name: cluster_version
+    value: "1.24"
+  - name: region
+    value: us-east-1
+  - name: vpc_cidr
+    value: 10.0.0.0/16
+  - name: public_subnet_count
+    value: "3"
+  - name: private_subnet_count
+    value: "3"
+  writeOutputsToSecret:
+    name: tfc-wego-demo-core-outputs
+
+---
+apiVersion: infra.contrib.fluxcd.io/v1alpha1
+kind: Terraform
+metadata:
+  labels:
+    templates.weave.works/template-name: tfc-demo
+    templates.weave.works/template-namespace: default
+  name: tfc-wego-demo-config
+  namespace: flux-system
+spec:
+  approvePlan: auto
+  backendConfig:
+    disable: true
+  cliConfigSecretRef:
+    name: tfc-cli-config
+  dependsOn:
+  - name: tfc-wego-demo-core
+  destroyResourcesOnDeletion: false
+  interval: 1h
+  path: ./cluster-templates/leaf-cluster-config
+  retryInterval: 20s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  vars:
+  - name: cluster_name
+    value: tfc-wego-demo
+  - name: region
+    value: us-east-1
+  - name: desired_size
+    value: "2"
+  - name: min_size
+    value: "1"
+  - name: max_size
+    value: "3"
+  - name: capacity_type
+    value: ON_DEMAND
+  - name: instance_type
+    value: t3.medium
