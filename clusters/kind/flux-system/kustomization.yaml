@@ -4,4 +4,4 @@ resources:
 - gotk-components.yaml
 - gotk-sync.yaml
 - apps.yaml
-- tfc-wego-demo.yaml
+# - tfc-wego-demo.yaml
