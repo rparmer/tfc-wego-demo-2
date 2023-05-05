@@ -12,7 +12,7 @@ spec:
     name: tfc-cli-config
   cloud:
     hostname: app.terraform.io
-    organization: terraform-controller-demo
+    organization: priyanka-training
     workspaces:
       name: tfc-wego-demo-core
   destroyResourcesOnDeletion: false
@@ -54,7 +54,7 @@ spec:
     name: tfc-cli-config
   cloud:
     hostname: app.terraform.io
-    organization: terraform-controller-demo
+    organization: priyanka-training
     workspaces:
       name: tfc-wego-demo-config
   dependsOn:
