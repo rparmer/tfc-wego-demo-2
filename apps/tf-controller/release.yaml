@@ -29,7 +29,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: 3
-  values:
-    runner:
-      grpc:
-        maxMessageSize: 30
