@@ -61,7 +61,7 @@ spec:
   - name: tfc-wego-demo-core
   destroyResourcesOnDeletion: false
   interval: 1h
-  path: ./cluster-templates/config
+  path: ./terraform/cluster-templates/config
   retryInterval: 20s
   sourceRef:
     kind: GitRepository
