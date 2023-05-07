@@ -24,7 +24,7 @@ provider "kubernetes" {
 }
 
 module "node_group" {
-  source                    = "github.com/priyanka-ravi/tfc-wego-demo.git//terraform/modules/node-group"
+  source                    = "github.com/rparmer/tfc-wego-demo-2.git//terraform/modules/node-group"
   cluster_name              = var.cluster_name
   node_group_name           = "${var.cluster_name}-ng"
   vpc_id                    = data.aws_eks_cluster.this.vpc_config[0].vpc_id
@@ -40,7 +40,7 @@ module "node_group" {
 data "aws_caller_identity" "current" {}
 
 module "aws_auth" {
-  source              = "github.com/priyanka-ravi/tfc-wego-demo.git//terraform/modules/aws-auth"
+  source              = "github.com/rparmer/tfc-wego-demo-2.git//terraform/modules/aws-auth"
   accounts            = [data.aws_caller_identity.current.account_id]
   cluster_admin_roles = var.cluster_admin_roles
   cluster_admin_users = var.cluster_admin_users

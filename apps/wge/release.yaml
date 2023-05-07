@@ -35,8 +35,6 @@ spec:
     config:
       git:
         type: github
-      capi:
-        repositoryURL: https://github.com/rparmer/tfc-wge-demo
       policy-agent:
         enabled: true
         excludeNamespaces:

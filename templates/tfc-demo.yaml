@@ -17,8 +17,8 @@ spec:
       description: Name of the cluster.
     - name: CLUSTER_VERSION
       description: Version of the cluster.
-      options: ["1.21", "1.22", "1.23", "1.24"]
-      default: "1.24"
+      options: ["1.22", "1.23", "1.24", "1.25", "1.26"]
+      default: "1.26"
     - name: AWS_REGION
       description: AWS region to deploy cluster.
       default: us-east-1
@@ -63,8 +63,6 @@ spec:
             destroyResourcesOnDeletion: false
             writeOutputsToSecret:
               name: '{{ .params.CLUSTER_NAME }}-core-outputs'
-            # backendConfig:
-            #   disable: true
             cloud:
               hostname: app.terraform.io
               organization: terraform-controller-demo
@@ -102,8 +100,6 @@ spec:
             path: ./cluster-templates/config
             approvePlan: auto
             destroyResourcesOnDeletion: false
-            # backendConfig:
-            #   disable: true
             cloud:
               hostname: app.terraform.io
               organization: terraform-controller-demo
@@ -126,6 +122,9 @@ spec:
                 value: '{{ .params.CAPACITY_TYPE }}'
               - name: instance_type
                 value: '{{ .params.INSTANCE_TYPE }}'
+            varsFrom:
+              - kind: Secret
+                name: '{{ .params.CLUSTER_NAME }}-core-outputs'
             sourceRef:
               kind: GitRepository
               name: flux-system
